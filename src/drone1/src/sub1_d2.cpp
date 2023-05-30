@@ -4,7 +4,7 @@
 void topicoCallback(const std_msgs::String::ConstPtr& msg)
 {
 
-  ROS_INFO("Posicao do drone 2: [%s]", msg->data.c_str());
+  ROS_INFO("Drone2: [%s]", msg->data.c_str());
 
 }
 
