@@ -4,17 +4,17 @@
 void topicoCallback(const std_msgs::String::ConstPtr& msg)
 {
 
-  ROS_INFO("Drone2: [%s]", msg->data.c_str());
+  ROS_INFO("Drone3: [%s]", msg->data.c_str());
 
 }
 
 int main(int argc, char **argv)
 {
 
-    ros::init(argc, argv, "sub3_d2");
+    ros::init(argc, argv, "sub1_d3");
     ros::NodeHandle n;
 
-    ros::Subscriber sub = n.subscribe("pos_drone2", 100, topicoCallback);
+    ros::Subscriber sub = n.subscribe("pos_drone3", 100, topicoCallback);
     ros::spin();
 
     return 0;
