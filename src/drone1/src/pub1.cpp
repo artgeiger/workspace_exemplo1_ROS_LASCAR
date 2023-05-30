@@ -2,7 +2,25 @@
 #include "std_msgs/String.h"
 #include <sstream>
 
+struct Dados{
+
+    Dados(){
+
+        this-> x = 0.5f;
+        this-> y = 2.5f;
+        this-> z = 9.6f;
+
+    }
+
+    float x;
+    float y;
+    float z;
+
+};
+
 int main(int argc, char **argv){
+
+    Dados dado;
 
     ros::init(argc, argv, "pub1");
     ros::NodeHandle n;
@@ -17,23 +35,48 @@ int main(int argc, char **argv){
 
         std::stringstream ss;
 
-        ss <<"A posicão do drone 1 é de x = 0.5, y = 2.5 e z = 9.6 em metros" << cont;
+        if(dado.x < 100.0 || dado.y < 100.0 || dado.z < 100.0){
 
-        msg.data = ss.str();
+            ss << dado.x << ", " << dado.y << ", " << dado.z << " " + cont;
 
-        ROS_INFO("%s", msg.data.c_str());
+            msg.data = ss.str();
 
-        UAV_pub.publish(msg);
+            ROS_INFO("%s", msg.data.c_str());
 
-        ros::spinOnce();
+            UAV_pub.publish(msg);
 
-        loop_rate.sleep();
+            ros::spinOnce();
 
-        ++cont;
+            loop_rate.sleep();
+
+            dado.x = dado.x + 1;
+            dado.y = dado.y + 1;
+            dado.z = dado.z + 1;
+
+        }else{
+
+            dado.x = 0.5f;
+            dado.y = 2.5f;
+            dado.z = 9.6f;
+
+            ss << dado.x << ", " << dado.y << ", " << dado.z << " " + cont;
+
+            msg.data = ss.str();
+
+            ROS_INFO("%s", msg.data.c_str());
+
+            UAV_pub.publish(msg);
+
+            ros::spinOnce();
+
+            loop_rate.sleep();
+
+            ++cont;
+
+        }
 
     }
 
     return 0;
-
 
 }
